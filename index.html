@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +7,6 @@
 <link rel="stylesheet" href="style.css">
 <link rel="manifest" href="manifest.json">
 </head>
-
 <body>
 
 <header>
@@ -17,17 +15,17 @@
 
 <section id="home" class="page">
 <div class="card clickable" onclick="showPage('keller')">
-<h2>🍷 Keller</h2>
+<h2>Keller</h2>
 <p id="countKeller">0 Flaschen</p>
 </div>
 
 <div class="card clickable" onclick="showPage('wishlist')">
-<h2>⭐ Wishlist</h2>
+<h2>Wishlist</h2>
 <p id="countWishlist">0 Weine</p>
 </div>
 
 <div class="card clickable" onclick="showPage('archiv')">
-<h2>📦 Archiv</h2>
+<h2>Archiv</h2>
 <p id="countArchiv">0 Weine</p>
 </div>
 </section>
@@ -35,7 +33,7 @@
 <section id="keller" class="page hidden">
 <h2>Keller</h2>
 <div id="kellerListe"></div>
-<button id="addWine">＋ Wein hinzufügen</button>
+<button id="addWine">Wein hinzufügen</button>
 </section>
 
 <section id="wishlist" class="page hidden">
@@ -48,10 +46,27 @@
 <div id="archivListe"></div>
 </section>
 
+<section id="settings" class="page hidden">
+<h2>Einstellungen</h2>
+
+<div class="card">
+<h3>Lagerorte</h3>
+<ul id="locationList"></ul>
+<button onclick="addLocation()">Ort hinzufügen</button>
+</div>
+
+<div class="card">
+<h3>Gläser</h3>
+<ul id="glassList"></ul>
+<button onclick="addGlass()">Glas hinzufügen</button>
+</div>
+
+</section>
+
 <div id="detailModal" class="modal hidden">
 <div class="modalContent">
 
-<button onclick="closeModal()">✕</button>
+<button onclick="closeModal()">Schließen</button>
 
 <h2 id="detailName"></h2>
 
@@ -60,9 +75,7 @@
 </label>
 
 <p id="detailInfo"></p>
-
-<p id="detailPreis"></p>
-<p id="detailKaufdatum"></p>
+<p id="detailCounter"></p>
 
 <div id="rating"></div>
 
@@ -70,7 +83,7 @@
 
 <button onclick="saveNotes()">Notizen speichern</button>
 <button onclick="drinkBottle()">Flasche trinken</button>
-<button onclick="addBottle()">Flasche hinzufügen</button>
+<button onclick="addPurchase()">Nachkauf hinzufügen</button>
 <button onclick="editWine()">Bearbeiten</button>
 <button onclick="deleteWine()">Löschen</button>
 
@@ -82,6 +95,7 @@
 <button onclick="showPage('keller')">Keller</button>
 <button onclick="showPage('wishlist')">Wishlist</button>
 <button onclick="showPage('archiv')">Archiv</button>
+<button onclick="showPage('settings')">Settings</button>
 </nav>
 
 <script src="app.js"></script>

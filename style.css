@@ -1,39 +1,38 @@
 
 body{
 font-family:-apple-system,BlinkMacSystemFont;
-background:#F7F6F2;
+background:#f4f7fb;
 margin:0;
 padding:20px;
-padding-bottom:90px;
+padding-bottom:100px;
 color:#222;
 }
 
 .card{
-background:white;
+background:#ffffff;
 padding:16px;
 margin-bottom:14px;
-border-radius:10px;
-box-shadow:0 3px 8px rgba(0,0,0,0.05);
+border:2px solid #e2e8f0;
+border-radius:0;
 }
 
 .clickable{cursor:pointer;}
-
 .page.hidden{display:none;}
 
 .wineCard{
-background:white;
+background:#ffffff;
 padding:16px;
 margin-bottom:12px;
-border-radius:10px;
-box-shadow:0 3px 8px rgba(0,0,0,0.05);
+border:2px solid #d0d7e2;
+border-radius:0;
 }
 
 button{
-background:#6E7CF0;
+background:#4f7cff;
 color:white;
 border:none;
 padding:10px 14px;
-border-radius:8px;
+border-radius:0;
 margin-top:8px;
 }
 
@@ -53,14 +52,7 @@ justify-content:center;
 background:white;
 padding:20px;
 width:90%;
-border-radius:10px;
-}
-
-.hidden{display:none;}
-
-#rating span{
-font-size:28px;
-cursor:pointer;
+border-radius:0;
 }
 
 textarea{
@@ -75,9 +67,9 @@ position:fixed;
 bottom:0;
 left:0;
 width:100%;
-background:white;
+background:#ffffff;
 display:flex;
 justify-content:space-around;
 padding:10px;
-box-shadow:0 -2px 8px rgba(0,0,0,0.1);
+border-top:2px solid #e2e8f0;
 }

@@ -1,9 +1,13 @@
 
 let wines = JSON.parse(localStorage.getItem("vinmemo_wines")) || [];
+let locations = JSON.parse(localStorage.getItem("vinmemo_locations")) || [];
+let glasses = JSON.parse(localStorage.getItem("vinmemo_glasses")) || [];
 let currentWineIndex = null;
 
 function save(){
 localStorage.setItem("vinmemo_wines", JSON.stringify(wines));
+localStorage.setItem("vinmemo_locations", JSON.stringify(locations));
+localStorage.setItem("vinmemo_glasses", JSON.stringify(glasses));
 }
 
 function showPage(id){
@@ -15,15 +19,7 @@ render();
 function renderCard(wine,i){
 let card=document.createElement("div");
 card.className="wineCard";
-
-card.innerHTML=`
-<b>${wine.name}</b><br>
-${wine.producer}<br>
-${wine.vintage} • ${wine.region}<br>
-🍷 ${wine.bottles} Flaschen<br>
-⭐ ${wine.rating||0}
-`;
-
+card.innerHTML=`<b>${wine.name}</b><br>${wine.producer}<br>${wine.vintage} • ${wine.region}<br>Verbleibend: ${wine.remaining} | Getrunken: ${wine.drank}`;
 card.onclick=()=>openDetail(i);
 return card;
 }
@@ -40,7 +36,7 @@ archiv.innerHTML="";
 
 wines.forEach((wine,i)=>{
 
-if(wine.bottles > 0){
+if(wine.remaining>0){
 keller.appendChild(renderCard(wine,i));
 }
 
@@ -48,21 +44,65 @@ if(wine.wishlist){
 wishlist.appendChild(renderCard(wine,i));
 }
 
-if(wine.bottles === 0){
+if(wine.remaining===0){
 archiv.appendChild(renderCard(wine,i));
 }
 
 });
 
 document.getElementById("countKeller").innerText =
-wines.reduce((a,w)=>a+(w.bottles>0?w.bottles:0),0)+" Flaschen";
+wines.reduce((a,w)=>a+w.remaining,0)+" Flaschen";
 
 document.getElementById("countWishlist").innerText =
 wines.filter(w=>w.wishlist).length+" Weine";
 
 document.getElementById("countArchiv").innerText =
-wines.filter(w=>w.bottles===0).length+" Weine";
+wines.filter(w=>w.remaining===0).length+" Weine";
 
+renderSettings();
+}
+
+function renderSettings(){
+
+let loc=document.getElementById("locationList");
+loc.innerHTML="";
+locations.forEach((l,i)=>{
+let li=document.createElement("li");
+li.innerHTML=l+" <button onclick='deleteLocation("+i+")'>X</button>";
+loc.appendChild(li);
+});
+
+let gl=document.getElementById("glassList");
+gl.innerHTML="";
+glasses.forEach((g,i)=>{
+let li=document.createElement("li");
+li.innerHTML=g+" <button onclick='deleteGlass("+i+")'>X</button>";
+gl.appendChild(li);
+});
+}
+
+function addLocation(){
+let name=prompt("Lagerort");
+if(!name) return;
+locations.push(name);
+save();render();
+}
+
+function deleteLocation(i){
+locations.splice(i,1);
+save();render();
+}
+
+function addGlass(){
+let name=prompt("Glas");
+if(!name) return;
+glasses.push(name);
+save();render();
+}
+
+function deleteGlass(i){
+glasses.splice(i,1);
+save();render();
 }
 
 function openDetail(i){
@@ -71,9 +111,12 @@ currentWineIndex=i;
 let wine=wines[i];
 
 document.getElementById("detailName").innerText=wine.name;
-document.getElementById("detailInfo").innerText=wine.producer+" • "+wine.vintage;
-document.getElementById("detailPreis").innerText="Preis pro Flasche: "+(wine.price||"-")+" €";
-document.getElementById("detailKaufdatum").innerText="Kaufdatum: "+(wine.purchaseDate||"-");
+
+document.getElementById("detailInfo").innerText=
+wine.producer+" • "+wine.vintage+" • "+wine.region;
+
+document.getElementById("detailCounter").innerText=
+"Getrunken: "+wine.drank+" | Verbleibend: "+wine.remaining;
 
 document.getElementById("notes").value=wine.notes||"";
 
@@ -81,8 +124,7 @@ document.getElementById("wishlistToggle").checked=wine.wishlist;
 
 document.getElementById("wishlistToggle").onchange=(e)=>{
 wine.wishlist=e.target.checked;
-save();
-render();
+save();render();
 };
 
 renderStars(wine.rating||0);
@@ -96,10 +138,8 @@ let container=document.getElementById("rating");
 container.innerHTML="";
 
 for(let i=1;i<=5;i++){
-
 let s=document.createElement("span");
 s.innerText="⭐";
-
 if(i<=r) s.style.opacity=1;
 else s.style.opacity=0.3;
 
@@ -108,7 +148,7 @@ wines[currentWineIndex].rating=i;
 save();
 renderStars(i);
 render();
-}
+};
 
 container.appendChild(s);
 }
@@ -127,21 +167,26 @@ function drinkBottle(){
 
 let wine=wines[currentWineIndex];
 
-if(wine.bottles>0){
-wine.bottles--;
+if(wine.remaining>0){
+wine.remaining--;
+wine.drank++;
 }
 
-save();
-render();
+save();render();
 }
 
-function addBottle(){
+function addPurchase(){
 
 let wine=wines[currentWineIndex];
-wine.bottles++;
-save();
-render();
 
+let amount=Number(prompt("Wie viele Flaschen gekauft?"));
+let price=prompt("Preis pro Flasche");
+let date=prompt("Kaufdatum");
+
+wine.purchases.push({amount,price,date});
+wine.remaining+=amount;
+
+save();render();
 }
 
 function editWine(){
@@ -152,12 +197,8 @@ wine.name=prompt("Name",wine.name);
 wine.producer=prompt("Produzent",wine.producer);
 wine.vintage=prompt("Jahrgang",wine.vintage);
 wine.region=prompt("Region",wine.region);
-wine.price=prompt("Preis pro Flasche (€)",wine.price||"");
-wine.purchaseDate=prompt("Kaufdatum",wine.purchaseDate||"");
-wine.bottles=Number(prompt("Flaschen",wine.bottles));
 
-save();
-render();
+save();render();
 }
 
 function deleteWine(){
@@ -177,21 +218,21 @@ let name=prompt("Weinname");
 let producer=prompt("Produzent");
 let vintage=prompt("Jahrgang");
 let region=prompt("Region");
-let bottles=Number(prompt("Flaschen",1));
-let price=prompt("Preis pro Flasche (€)");
-let purchaseDate=prompt("Kaufdatum");
+let amount=Number(prompt("Flaschen gekauft"));
+let price=prompt("Preis pro Flasche");
+let date=prompt("Kaufdatum");
 
 wines.push({
 name,
 producer,
 vintage,
 region,
-bottles,
-price,
-purchaseDate,
 wishlist:false,
 rating:0,
-notes:""
+notes:"",
+remaining:amount,
+drank:0,
+purchases:[{amount,price,date}]
 });
 
 save();
