@@ -12,48 +12,69 @@
 
 <header>
 <h1>VinMemo</h1>
+<nav>
+<button onclick="showPage('home')">Home</button>
+<button onclick="showPage('cellar')">Cellar</button>
+<button onclick="showPage('wishlist')">Wishlist</button>
+<button onclick="showPage('settings')">Settings</button>
+</nav>
 </header>
 
-<section id="dashboard">
-
-<div class="card stat">
-<div>
+<section id="home" class="page">
+<div class="card">
 <h2>🍷 Keller</h2>
 <p id="bottleCount">0 Flaschen</p>
 </div>
-</div>
 
-<div class="card stat">
-<div>
+<div class="card">
 <h2>⭐ Wishlist</h2>
 <p id="wishlistCount">0 Weine</p>
 </div>
+</section>
+
+<section id="cellar" class="page hidden">
+<h2>Alle Weine</h2>
+<div id="wineList"></div>
+<button id="addWine">＋ Wein hinzufügen</button>
+</section>
+
+<section id="wishlist" class="page hidden">
+<h2>Wishlist</h2>
+<div id="wishlistList"></div>
+</section>
+
+<section id="settings" class="page hidden">
+<h2>Settings</h2>
+
+<div class="card">
+<h3>Storage Locations</h3>
+<ul id="locationList"></ul>
+<button onclick="addLocation()">Add location</button>
+</div>
+
+<div class="card">
+<h3>Glasses</h3>
+<ul id="glassList"></ul>
+<button onclick="addGlass()">Add glass</button>
 </div>
 
 </section>
-
-<section>
-
-<h2>Alle Weine</h2>
-<div id="wineList"></div>
-
-</section>
-
-<button id="addWine">＋</button>
 
 <div id="detailModal" class="modal hidden">
 <div class="modalContent">
 
-<button id="closeModal">✕</button>
+<button onclick="closeModal()">✕</button>
 
 <h2 id="detailName"></h2>
 <p id="detailInfo"></p>
 
-<div class="rating" id="rating"></div>
+<div id="rating"></div>
 
-<textarea id="notes" placeholder="Eigene Gedanken / Notizen"></textarea>
+<textarea id="notes" placeholder="Notizen"></textarea>
 
-<button id="saveNotes">Speichern</button>
+<button onclick="saveNotes()">Save notes</button>
+<button onclick="editWine()">Edit</button>
+<button onclick="deleteWine()">Delete</button>
 
 </div>
 </div>
