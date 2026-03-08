@@ -125,13 +125,6 @@ render();
 
 }
 
-window.addEventListener("click",function(e){
-let modal=document.getElementById("detailModal");
-if(e.target===modal){
-closeModal();
-}
-});
-
 function drinkBottle(){
 
 let wine=wines[currentWineIndex];
