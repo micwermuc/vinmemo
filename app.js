@@ -20,9 +20,9 @@ render();
 function render(){
 
 let list=document.getElementById("wineList");
-list.innerHTML="";
-
 let wishlist=document.getElementById("wishlistList");
+
+list.innerHTML="";
 wishlist.innerHTML="";
 
 wines.forEach((wine,i)=>{
@@ -59,18 +59,26 @@ function renderSettings(){
 
 let loc=document.getElementById("locationList");
 loc.innerHTML="";
-locations.forEach(l=>{
+
+locations.forEach((l,i)=>{
+
 let li=document.createElement("li");
-li.innerText=l;
+li.innerHTML=`${l} <button onclick="editLocation(${i})">✏️</button> <button onclick="deleteLocation(${i})">🗑</button>`;
+
 loc.appendChild(li);
+
 });
 
 let gl=document.getElementById("glassList");
 gl.innerHTML="";
-glasses.forEach(g=>{
+
+glasses.forEach((g,i)=>{
+
 let li=document.createElement("li");
-li.innerText=g;
+li.innerHTML=`${g} <button onclick="editGlass(${i})">✏️</button> <button onclick="deleteGlass(${i})">🗑</button>`;
+
 gl.appendChild(li);
+
 });
 
 }
@@ -79,16 +87,38 @@ function addLocation(){
 let name=prompt("Location name");
 if(!name) return;
 locations.push(name);
-save();
-render();
+save();render();
+}
+
+function editLocation(i){
+let name=prompt("Edit location",locations[i]);
+if(!name) return;
+locations[i]=name;
+save();render();
+}
+
+function deleteLocation(i){
+locations.splice(i,1);
+save();render();
 }
 
 function addGlass(){
 let name=prompt("Glass name");
 if(!name) return;
 glasses.push(name);
-save();
-render();
+save();render();
+}
+
+function editGlass(i){
+let name=prompt("Edit glass",glasses[i]);
+if(!name) return;
+glasses[i]=name;
+save();render();
+}
+
+function deleteGlass(i){
+glasses.splice(i,1);
+save();render();
 }
 
 function openDetail(i){
@@ -100,6 +130,13 @@ document.getElementById("detailName").innerText=wine.name;
 document.getElementById("detailInfo").innerText=wine.producer+" • "+wine.vintage;
 
 document.getElementById("notes").value=wine.notes||"";
+
+document.getElementById("wishlistToggle").checked=wine.wishlist;
+
+document.getElementById("wishlistToggle").onchange=(e)=>{
+wine.wishlist=e.target.checked;
+save();render();
+};
 
 renderStars(wine.rating||0);
 
@@ -138,11 +175,8 @@ document.getElementById("detailModal").classList.add("hidden");
 }
 
 function saveNotes(){
-
 wines[currentWineIndex].notes=document.getElementById("notes").value;
-
 save();
-
 }
 
 function editWine(){
@@ -180,15 +214,13 @@ let vintage=prompt("Vintage");
 let region=prompt("Region");
 let bottles=Number(prompt("Bottles",1));
 
-let wishlist=confirm("Add to wishlist?");
-
 wines.push({
 name,
 producer,
 vintage,
 region,
 bottles,
-wishlist,
+wishlist:false,
 rating:0,
 notes:""
 });
