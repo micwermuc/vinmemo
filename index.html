@@ -16,53 +16,36 @@
 </header>
 
 <section id="home" class="page">
-<div class="card clickable" onclick="showPage('cellar')">
+<div class="card clickable" onclick="showPage('keller')">
 <h2>🍷 Keller</h2>
-<p id="bottleCount">0 Flaschen</p>
+<p id="countKeller">0 Flaschen</p>
 </div>
 
 <div class="card clickable" onclick="showPage('wishlist')">
 <h2>⭐ Wishlist</h2>
-<p id="wishlistCount">0 Weine</p>
+<p id="countWishlist">0 Weine</p>
 </div>
 
-<div class="card clickable" onclick="showPage('archive')">
+<div class="card clickable" onclick="showPage('archiv')">
 <h2>📦 Archiv</h2>
-<p id="archiveCount">0 Weine</p>
+<p id="countArchiv">0 Weine</p>
 </div>
 </section>
 
-<section id="cellar" class="page hidden">
-<h2>Cellar</h2>
-<div id="wineList"></div>
+<section id="keller" class="page hidden">
+<h2>Keller</h2>
+<div id="kellerListe"></div>
 <button id="addWine">＋ Wein hinzufügen</button>
 </section>
 
 <section id="wishlist" class="page hidden">
 <h2>Wishlist</h2>
-<div id="wishlistList"></div>
+<div id="wishlistListe"></div>
 </section>
 
-<section id="archive" class="page hidden">
-<h2>Archive</h2>
-<div id="archiveList"></div>
-</section>
-
-<section id="settings" class="page hidden">
-<h2>Settings</h2>
-
-<div class="card">
-<h3>Storage Locations</h3>
-<ul id="locationList"></ul>
-<button onclick="addLocation()">Add location</button>
-</div>
-
-<div class="card">
-<h3>Glasses</h3>
-<ul id="glassList"></ul>
-<button onclick="addGlass()">Add glass</button>
-</div>
-
+<section id="archiv" class="page hidden">
+<h2>Archiv</h2>
+<div id="archivListe"></div>
 </section>
 
 <div id="detailModal" class="modal hidden">
@@ -73,29 +56,32 @@
 <h2 id="detailName"></h2>
 
 <label>
-<input type="checkbox" id="wishlistToggle"> Wishlist
+<input type="checkbox" id="wishlistToggle"> Auf Wishlist
 </label>
 
 <p id="detailInfo"></p>
+
+<p id="detailPreis"></p>
+<p id="detailKaufdatum"></p>
 
 <div id="rating"></div>
 
 <textarea id="notes" placeholder="Notizen"></textarea>
 
-<button onclick="saveNotes()">Save notes</button>
-<button onclick="drinkBottle()">Drink bottle</button>
-<button onclick="editWine()">Edit</button>
-<button onclick="deleteWine()">Delete</button>
+<button onclick="saveNotes()">Notizen speichern</button>
+<button onclick="drinkBottle()">Flasche trinken</button>
+<button onclick="addBottle()">Flasche hinzufügen</button>
+<button onclick="editWine()">Bearbeiten</button>
+<button onclick="deleteWine()">Löschen</button>
 
 </div>
 </div>
 
 <nav class="bottomNav">
 <button onclick="showPage('home')">Home</button>
-<button onclick="showPage('cellar')">Cellar</button>
+<button onclick="showPage('keller')">Keller</button>
 <button onclick="showPage('wishlist')">Wishlist</button>
-<button onclick="showPage('archive')">Archive</button>
-<button onclick="showPage('settings')">Settings</button>
+<button onclick="showPage('archiv')">Archiv</button>
 </nav>
 
 <script src="app.js"></script>
