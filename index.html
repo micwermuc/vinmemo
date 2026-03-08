@@ -16,7 +16,6 @@
 
 <section id="home" class="page">
 <div class="dashboard">
-
 <div class="dashCard" onclick="showPage('keller')">
 <h2>Keller</h2>
 <p id="countKeller">0 Flaschen</p>
@@ -31,7 +30,6 @@
 <h2>Archiv</h2>
 <p id="countArchiv">0 Weine</p>
 </div>
-
 </div>
 </section>
 
@@ -51,6 +49,11 @@
 <div id="archivListe" class="cardGrid"></div>
 </section>
 
+<section id="settings" class="page hidden">
+<h2>Einstellungen</h2>
+<p>Weitere Optionen folgen.</p>
+</section>
+
 <div id="detailModal" class="modal hidden">
 <div class="modalContent">
 
@@ -60,30 +63,21 @@
 </div>
 
 <div id="viewMode">
-
 <h2 id="viewName"></h2>
 <p id="viewProducer"></p>
 <p id="viewVintage"></p>
 <p id="viewRegion"></p>
-
 <p id="viewCounter"></p>
 <p id="viewNotes"></p>
-
 </div>
 
 <div id="editMode" class="hidden">
-
 <input id="editName" placeholder="Name">
 <input id="editProducer" placeholder="Produzent">
 <input id="editVintage" placeholder="Jahrgang">
 <input id="editRegion" placeholder="Region">
-
 <textarea id="editNotes" placeholder="Notizen"></textarea>
-
-<label>
-<input type="checkbox" id="editWishlist"> Wishlist
-</label>
-
+<label><input type="checkbox" id="editWishlist"> Wishlist</label>
 </div>
 
 <div class="actions">
@@ -100,6 +94,7 @@
 <button onclick="showPage('keller')">Keller</button>
 <button onclick="showPage('wishlist')">Wishlist</button>
 <button onclick="showPage('archiv')">Archiv</button>
+<button onclick="showPage('settings')">Settings</button>
 </nav>
 
 <script src="app.js"></script>
