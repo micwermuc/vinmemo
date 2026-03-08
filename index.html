@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VinMemo</title>
+<link rel="stylesheet" href="style.css">
+<link rel="manifest" href="manifest.json">
+</head>
+
+<body>
+
+<header>
+<h1>VinMemo</h1>
+</header>
+
+<section id="dashboard">
+
+<div class="card stat">
+<div>
+<h2>🍷 Keller</h2>
+<p id="bottleCount">0 Flaschen</p>
+</div>
+</div>
+
+<div class="card stat">
+<div>
+<h2>⭐ Wishlist</h2>
+<p id="wishlistCount">0 Weine</p>
+</div>
+</div>
+
+</section>
+
+<section>
+
+<h2>Alle Weine</h2>
+<div id="wineList"></div>
+
+</section>
+
+<button id="addWine">＋</button>
+
+<div id="detailModal" class="modal hidden">
+<div class="modalContent">
+
+<button id="closeModal">✕</button>
+
+<h2 id="detailName"></h2>
+<p id="detailInfo"></p>
+
+<div class="rating" id="rating"></div>
+
+<textarea id="notes" placeholder="Eigene Gedanken / Notizen"></textarea>
+
+<button id="saveNotes">Speichern</button>
+
+</div>
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
