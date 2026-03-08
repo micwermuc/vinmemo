@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +8,7 @@
 <link rel="stylesheet" href="style.css">
 <link rel="manifest" href="manifest.json">
 </head>
+
 <body>
 
 <header>
@@ -66,26 +68,29 @@
 <div id="detailModal" class="modal hidden">
 <div class="modalContent">
 
-<button onclick="closeModal()">Schließen</button>
+<button class="closeBtn" onclick="closeModal()">✕</button>
 
-<h2 id="detailName"></h2>
+<input id="detailName" class="field title"/>
 
-<label>
-<input type="checkbox" id="wishlistToggle"> Auf Wishlist
+<label class="checkbox">
+<input type="checkbox" id="wishlistToggle"> Wishlist
 </label>
 
-<p id="detailInfo"></p>
+<input id="detailProducer" class="field"/>
+<input id="detailVintage" class="field"/>
+<input id="detailRegion" class="field"/>
+
 <p id="detailCounter"></p>
 
 <div id="rating"></div>
 
-<textarea id="notes" placeholder="Notizen"></textarea>
+<textarea id="notes" class="field"></textarea>
 
-<button onclick="saveNotes()">Notizen speichern</button>
+<div class="actions">
 <button onclick="drinkBottle()">Flasche trinken</button>
-<button onclick="addPurchase()">Nachkauf hinzufügen</button>
-<button onclick="editWine()">Bearbeiten</button>
+<button onclick="addPurchase()">Nachkauf</button>
 <button onclick="deleteWine()">Löschen</button>
+</div>
 
 </div>
 </div>
