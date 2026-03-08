@@ -25,6 +25,11 @@
 <h2>⭐ Wishlist</h2>
 <p id="wishlistCount">0 Weine</p>
 </div>
+
+<div class="card clickable" onclick="showPage('archive')">
+<h2>📦 Archiv</h2>
+<p id="archiveCount">0 Weine</p>
+</div>
 </section>
 
 <section id="cellar" class="page hidden">
@@ -36,6 +41,11 @@
 <section id="wishlist" class="page hidden">
 <h2>Wishlist</h2>
 <div id="wishlistList"></div>
+</section>
+
+<section id="archive" class="page hidden">
+<h2>Archive</h2>
+<div id="archiveList"></div>
 </section>
 
 <section id="settings" class="page hidden">
@@ -63,7 +73,7 @@
 <h2 id="detailName"></h2>
 
 <label>
-<input type="checkbox" id="wishlistToggle"> On Wishlist
+<input type="checkbox" id="wishlistToggle"> Wishlist
 </label>
 
 <p id="detailInfo"></p>
@@ -73,6 +83,7 @@
 <textarea id="notes" placeholder="Notizen"></textarea>
 
 <button onclick="saveNotes()">Save notes</button>
+<button onclick="drinkBottle()">Drink bottle</button>
 <button onclick="editWine()">Edit</button>
 <button onclick="deleteWine()">Delete</button>
 
@@ -83,6 +94,7 @@
 <button onclick="showPage('home')">Home</button>
 <button onclick="showPage('cellar')">Cellar</button>
 <button onclick="showPage('wishlist')">Wishlist</button>
+<button onclick="showPage('archive')">Archive</button>
 <button onclick="showPage('settings')">Settings</button>
 </nav>
 
