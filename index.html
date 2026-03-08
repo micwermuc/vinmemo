@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,41 +49,31 @@
 
 <section id="settings" class="page hidden">
 <h2>Einstellungen</h2>
-
-<div class="card">
-<h3>Lagerorte</h3>
-<ul id="locationList"></ul>
-<button onclick="addLocation()">Ort hinzufügen</button>
-</div>
-
-<div class="card">
-<h3>Gläser</h3>
-<ul id="glassList"></ul>
-<button onclick="addGlass()">Glas hinzufügen</button>
-</div>
-
 </section>
 
 <div id="detailModal" class="modal hidden">
 <div class="modalContent">
 
-<button class="closeBtn" onclick="closeModal()">✕</button>
+<button class="closeBtn" onclick="closeModal()">X</button>
+<button class="editBtn" onclick="toggleEdit()">✏️</button>
 
-<input id="detailName" class="field title"/>
+<div id="viewMode">
+<h2 id="viewName"></h2>
+<p id="viewProducer"></p>
+<p id="viewVintage"></p>
+<p id="viewRegion"></p>
+<p id="viewCounter"></p>
+<p id="viewNotes"></p>
+</div>
 
-<label class="checkbox">
-<input type="checkbox" id="wishlistToggle"> Wishlist
-</label>
-
-<input id="detailProducer" class="field"/>
-<input id="detailVintage" class="field"/>
-<input id="detailRegion" class="field"/>
-
-<p id="detailCounter"></p>
-
-<div id="rating"></div>
-
-<textarea id="notes" class="field"></textarea>
+<div id="editMode" class="hidden">
+<input id="editName">
+<input id="editProducer">
+<input id="editVintage">
+<input id="editRegion">
+<textarea id="editNotes"></textarea>
+<label><input type="checkbox" id="editWishlist"> Wishlist</label>
+</div>
 
 <div class="actions">
 <button onclick="drinkBottle()">Flasche trinken</button>
@@ -100,7 +89,6 @@
 <button onclick="showPage('keller')">Keller</button>
 <button onclick="showPage('wishlist')">Wishlist</button>
 <button onclick="showPage('archiv')">Archiv</button>
-<button onclick="showPage('settings')">Settings</button>
 </nav>
 
 <script src="app.js"></script>
