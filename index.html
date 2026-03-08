@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VinMemo</title>
 <link rel="stylesheet" href="style.css">
-<link rel="manifest" href="manifest.json">
 </head>
 
 <body>
@@ -15,38 +14,24 @@
 </header>
 
 <section id="home" class="page">
-<div class="dashboard">
-<div class="dashCard" onclick="showPage('keller')">
-<h2>Keller</h2>
-<p id="countKeller">0 Flaschen</p>
-</div>
-
-<div class="dashCard" onclick="showPage('wishlist')">
-<h2>Wishlist</h2>
-<p id="countWishlist">0 Weine</p>
-</div>
-
-<div class="dashCard" onclick="showPage('archiv')">
-<h2>Archiv</h2>
-<p id="countArchiv">0 Weine</p>
-</div>
-</div>
+<h2>Übersicht</h2>
+<p id="stats"></p>
 </section>
 
 <section id="keller" class="page hidden">
 <h2>Keller</h2>
-<div id="kellerListe" class="cardGrid"></div>
+<div id="wineList"></div>
 <button id="addWine">Wein hinzufügen</button>
 </section>
 
 <section id="wishlist" class="page hidden">
 <h2>Wishlist</h2>
-<div id="wishlistListe" class="cardGrid"></div>
+<div id="wishlistList"></div>
 </section>
 
 <section id="archiv" class="page hidden">
 <h2>Archiv</h2>
-<div id="archivListe" class="cardGrid"></div>
+<div id="archivList"></div>
 </section>
 
 <section id="settings" class="page hidden">
@@ -54,16 +39,16 @@
 <p>Weitere Optionen folgen.</p>
 </section>
 
-<div id="detailModal" class="modal hidden">
-<div class="modalContent">
+<div id="modal" class="modal hidden">
+<div class="modal-card">
 
-<div class="modalHeader">
-<span class="editBtn" onclick="toggleEdit()">✏️</span>
-<span class="closeBtn" onclick="closeModal()">✕</span>
+<div class="modal-header">
+<span id="editBtn">✏️</span>
+<span id="closeBtn">✕</span>
 </div>
 
 <div id="viewMode">
-<h2 id="viewName"></h2>
+<h3 id="viewName"></h3>
 <p id="viewProducer"></p>
 <p id="viewVintage"></p>
 <p id="viewRegion"></p>
@@ -81,22 +66,23 @@
 </div>
 
 <div class="actions">
-<button onclick="drinkBottle()">Flasche trinken</button>
-<button onclick="addPurchase()">Nachkauf</button>
-<button onclick="deleteWine()">Löschen</button>
+<button id="drinkBtn">Flasche trinken</button>
+<button id="buyBtn">Nachkauf</button>
+<button id="deleteBtn">Löschen</button>
 </div>
 
 </div>
 </div>
 
-<nav class="bottomNav">
-<button onclick="showPage('home')">Home</button>
-<button onclick="showPage('keller')">Keller</button>
-<button onclick="showPage('wishlist')">Wishlist</button>
-<button onclick="showPage('archiv')">Archiv</button>
-<button onclick="showPage('settings')">Settings</button>
+<nav class="nav">
+<button data-page="home">Home</button>
+<button data-page="keller">Keller</button>
+<button data-page="wishlist">Wishlist</button>
+<button data-page="archiv">Archiv</button>
+<button data-page="settings">Settings</button>
 </nav>
 
 <script src="app.js"></script>
+
 </body>
 </html>

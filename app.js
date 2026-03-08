@@ -1,185 +1,175 @@
 
 let wines = JSON.parse(localStorage.getItem("vinmemo_wines")) || [];
-let currentWineIndex=null;
-let editMode=false;
+let currentIndex = null;
+let editMode = false;
+
+const modal = document.getElementById("modal");
+const viewMode = document.getElementById("viewMode");
+const editModeDiv = document.getElementById("editMode");
 
 function save(){
-localStorage.setItem("vinmemo_wines",JSON.stringify(wines));
+localStorage.setItem("vinmemo_wines", JSON.stringify(wines));
 }
 
-function showPage(id){
+function showPage(page){
 document.querySelectorAll(".page").forEach(p=>p.classList.add("hidden"));
-document.getElementById(id).classList.remove("hidden");
+document.getElementById(page).classList.remove("hidden");
 render();
 }
 
-function renderCard(wine,i){
-
-let card=document.createElement("div");
-card.className="wineCard";
-
-card.innerHTML=`
-<b>${wine.name}</b><br>
-${wine.producer||""}<br>
-${wine.vintage||""} • ${wine.region||""}<br>
-🍷 ${wine.remaining} | getrunken ${wine.drank}
-`;
-
-card.onclick=()=>openDetail(i);
-return card;
-}
+document.querySelectorAll(".nav button").forEach(btn=>{
+btn.onclick=()=>showPage(btn.dataset.page);
+});
 
 function render(){
 
-let keller=document.getElementById("kellerListe");
-let wishlist=document.getElementById("wishlistListe");
-let archiv=document.getElementById("archivListe");
+const wineList=document.getElementById("wineList");
+const wishList=document.getElementById("wishlistList");
+const archivList=document.getElementById("archivList");
 
-if(keller)keller.innerHTML="";
-if(wishlist)wishlist.innerHTML="";
-if(archiv)archiv.innerHTML="";
+if(wineList) wineList.innerHTML="";
+if(wishList) wishList.innerHTML="";
+if(archivList) archivList.innerHTML="";
 
-wines.forEach((wine,i)=>{
+wines.forEach((w,i)=>{
 
-if(wine.remaining>0 && keller){
-keller.appendChild(renderCard(wine,i));
-}
+const card=document.createElement("div");
+card.innerHTML=`
+<b>${w.name}</b><br>
+${w.producer||""}<br>
+${w.vintage||""} ${w.region||""}<br>
+🍷 ${w.remaining} | getrunken ${w.drank}
+`;
 
-if(wine.wishlist && wishlist){
-wishlist.appendChild(renderCard(wine,i));
-}
+card.onclick=()=>openWine(i);
 
-if(wine.remaining===0 && archiv){
-archiv.appendChild(renderCard(wine,i));
-}
+if(w.remaining>0 && wineList) wineList.appendChild(card);
+if(w.wishlist && wishList) wishList.appendChild(card);
+if(w.remaining===0 && archivList) archivList.appendChild(card);
 
 });
 
-if(document.getElementById("countKeller"))
-document.getElementById("countKeller").innerText =
-wines.reduce((a,w)=>a+w.remaining,0)+" Flaschen";
-
-if(document.getElementById("countWishlist"))
-document.getElementById("countWishlist").innerText =
-wines.filter(w=>w.wishlist).length+" Weine";
-
-if(document.getElementById("countArchiv"))
-document.getElementById("countArchiv").innerText =
-wines.filter(w=>w.remaining===0).length+" Weine";
+document.getElementById("stats").innerText=
+"Keller: "+wines.reduce((a,w)=>a+w.remaining,0)+
+" | Wishlist: "+wines.filter(w=>w.wishlist).length+
+" | Archiv: "+wines.filter(w=>w.remaining===0).length;
 
 }
 
-function openDetail(i){
+function openWine(i){
 
-currentWineIndex=i;
-let wine=wines[i];
+currentIndex=i;
+const w=wines[i];
 
-document.getElementById("viewName").innerText=wine.name;
-document.getElementById("viewProducer").innerText=wine.producer||"";
-document.getElementById("viewVintage").innerText=wine.vintage||"";
-document.getElementById("viewRegion").innerText=wine.region||"";
-document.getElementById("viewCounter").innerText="Verbleibend "+wine.remaining+" | Getrunken "+wine.drank;
-document.getElementById("viewNotes").innerText=wine.notes||"";
+document.getElementById("viewName").innerText=w.name;
+document.getElementById("viewProducer").innerText=w.producer||"";
+document.getElementById("viewVintage").innerText=w.vintage||"";
+document.getElementById("viewRegion").innerText=w.region||"";
+document.getElementById("viewCounter").innerText=
+"Verbleibend "+w.remaining+" | Getrunken "+w.drank;
+document.getElementById("viewNotes").innerText=w.notes||"";
 
-document.getElementById("editName").value=wine.name;
-document.getElementById("editProducer").value=wine.producer||"";
-document.getElementById("editVintage").value=wine.vintage||"";
-document.getElementById("editRegion").value=wine.region||"";
-document.getElementById("editNotes").value=wine.notes||"";
-document.getElementById("editWishlist").checked=wine.wishlist||false;
+document.getElementById("editName").value=w.name;
+document.getElementById("editProducer").value=w.producer||"";
+document.getElementById("editVintage").value=w.vintage||"";
+document.getElementById("editRegion").value=w.region||"";
+document.getElementById("editNotes").value=w.notes||"";
+document.getElementById("editWishlist").checked=w.wishlist||false;
 
+viewMode.classList.remove("hidden");
+editModeDiv.classList.add("hidden");
 editMode=false;
-document.getElementById("editMode").classList.add("hidden");
-document.getElementById("viewMode").classList.remove("hidden");
 
-document.getElementById("detailModal").classList.remove("hidden");
+modal.classList.remove("hidden");
 }
 
-function toggleEdit(){
+document.getElementById("closeBtn").onclick=()=>{
+closeModal();
+};
 
-editMode=!editMode;
-
-document.getElementById("editMode").classList.toggle("hidden");
-document.getElementById("viewMode").classList.toggle("hidden");
-
-}
+modal.onclick=(e)=>{
+if(e.target===modal) closeModal();
+};
 
 function closeModal(){
 
-let wine=wines[currentWineIndex];
-
 if(editMode){
+let w=wines[currentIndex];
 
-wine.name=document.getElementById("editName").value;
-wine.producer=document.getElementById("editProducer").value;
-wine.vintage=document.getElementById("editVintage").value;
-wine.region=document.getElementById("editRegion").value;
-wine.notes=document.getElementById("editNotes").value;
-wine.wishlist=document.getElementById("editWishlist").checked;
+w.name=document.getElementById("editName").value;
+w.producer=document.getElementById("editProducer").value;
+w.vintage=document.getElementById("editVintage").value;
+w.region=document.getElementById("editRegion").value;
+w.notes=document.getElementById("editNotes").value;
+w.wishlist=document.getElementById("editWishlist").checked;
 
 save();
 }
 
-document.getElementById("detailModal").classList.add("hidden");
+modal.classList.add("hidden");
 render();
 
 }
 
-function drinkBottle(){
+document.getElementById("editBtn").onclick=()=>{
 
-let wine=wines[currentWineIndex];
+editMode=!editMode;
 
-if(wine.remaining>0){
-wine.remaining--;
-wine.drank++;
+viewMode.classList.toggle("hidden");
+editModeDiv.classList.toggle("hidden");
+
+};
+
+document.getElementById("drinkBtn").onclick=()=>{
+
+let w=wines[currentIndex];
+if(w.remaining>0){
+w.remaining--;
+w.drank++;
+save();
+render();
 }
 
+};
+
+document.getElementById("buyBtn").onclick=()=>{
+
+let amount=parseInt(prompt("Wie viele Flaschen?"));
+if(!amount) return;
+
+let w=wines[currentIndex];
+w.remaining+=amount;
 save();
 render();
 
-}
+};
 
-function addPurchase(){
+document.getElementById("deleteBtn").onclick=()=>{
 
-let wine=wines[currentWineIndex];
+if(!confirm("Wein löschen?")) return;
 
-let amount=Number(prompt("Wie viele Flaschen gekauft?"));
-if(!amount)return;
-
-wine.remaining+=amount;
-
+wines.splice(currentIndex,1);
 save();
-render();
-
-}
-
-function deleteWine(){
-
-if(!confirm("Wein löschen?"))return;
-
-wines.splice(currentWineIndex,1);
-save();
-render();
 closeModal();
 
-}
+};
 
 document.getElementById("addWine").onclick=()=>{
 
 let name=prompt("Weinname");
-if(!name)return;
+if(!name) return;
 
 let producer=prompt("Produzent");
 let vintage=prompt("Jahrgang");
 let region=prompt("Region");
-let amount=Number(prompt("Flaschen"));
+let bottles=parseInt(prompt("Flaschen"))||0;
 
 wines.push({
 name,
 producer,
 vintage,
 region,
-remaining:amount||0,
+remaining:bottles,
 drank:0,
 wishlist:false,
 notes:""
@@ -188,6 +178,6 @@ notes:""
 save();
 render();
 
-}
+};
 
 render();
