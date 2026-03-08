@@ -1,10 +1,10 @@
 
 let wines = JSON.parse(localStorage.getItem("vinmemo_wines")) || [];
-let currentWineIndex = null;
+let currentWineIndex=null;
 let editMode=false;
 
 function save(){
-localStorage.setItem("vinmemo_wines", JSON.stringify(wines));
+localStorage.setItem("vinmemo_wines",JSON.stringify(wines));
 }
 
 function showPage(id){
@@ -14,10 +14,19 @@ render();
 }
 
 function renderCard(wine,i){
+
 let card=document.createElement("div");
 card.className="wineCard";
-card.innerHTML=`<b>${wine.name}</b><br>${wine.producer}<br>${wine.vintage} • ${wine.region}<br>Verbleibend: ${wine.remaining} | Getrunken: ${wine.drank}`;
+
+card.innerHTML=`
+<b>${wine.name}</b><br>
+${wine.producer}<br>
+${wine.vintage} • ${wine.region}<br>
+🍷 ${wine.remaining} | getrunken ${wine.drank}
+`;
+
 card.onclick=()=>openDetail(i);
+
 return card;
 }
 
@@ -47,17 +56,15 @@ archiv.appendChild(renderCard(wine,i));
 
 });
 
-if(document.getElementById("countKeller"))
-document.getElementById("countKeller").innerText=
+document.getElementById("countKeller").innerText =
 wines.reduce((a,w)=>a+w.remaining,0)+" Flaschen";
 
-if(document.getElementById("countWishlist"))
-document.getElementById("countWishlist").innerText=
+document.getElementById("countWishlist").innerText =
 wines.filter(w=>w.wishlist).length+" Weine";
 
-if(document.getElementById("countArchiv"))
-document.getElementById("countArchiv").innerText=
+document.getElementById("countArchiv").innerText =
 wines.filter(w=>w.remaining===0).length+" Weine";
+
 }
 
 function openDetail(i){
@@ -69,7 +76,7 @@ document.getElementById("viewName").innerText=wine.name;
 document.getElementById("viewProducer").innerText=wine.producer;
 document.getElementById("viewVintage").innerText=wine.vintage;
 document.getElementById("viewRegion").innerText=wine.region;
-document.getElementById("viewCounter").innerText="Getrunken "+wine.drank+" | Verbleibend "+wine.remaining;
+document.getElementById("viewCounter").innerText="Verbleibend "+wine.remaining+" | Getrunken "+wine.drank;
 document.getElementById("viewNotes").innerText=wine.notes||"";
 
 document.getElementById("editName").value=wine.name;
@@ -109,21 +116,19 @@ wine.notes=document.getElementById("editNotes").value;
 wine.wishlist=document.getElementById("editWishlist").checked;
 
 save();
-
 }
 
 document.getElementById("detailModal").classList.add("hidden");
 render();
+
 }
 
-window.addEventListener("click",function(e){
-
+window.onclick=function(e){
 let modal=document.getElementById("detailModal");
 if(e.target===modal){
 closeModal();
 }
-
-});
+}
 
 function drinkBottle(){
 
@@ -136,6 +141,7 @@ wine.drank++;
 
 save();
 render();
+
 }
 
 function addPurchase(){
@@ -143,12 +149,14 @@ function addPurchase(){
 let wine=wines[currentWineIndex];
 
 let amount=Number(prompt("Wie viele Flaschen gekauft?"));
+
 if(!amount)return;
 
 wine.remaining+=amount;
 
 save();
 render();
+
 }
 
 function deleteWine(){

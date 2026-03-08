@@ -2,7 +2,7 @@
   "name": "VinMemo",
   "short_name": "VinMemo",
   "display": "standalone",
-  "background_color": "#f6f8fb",
-  "theme_color": "#4f7cff",
+  "background_color": "#f5f7fb",
+  "theme_color": "#5b7cfa",
   "start_url": "index.html"
 }

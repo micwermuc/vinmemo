@@ -4,32 +4,50 @@ font-family:-apple-system,BlinkMacSystemFont;
 margin:0;
 padding:20px;
 padding-bottom:80px;
-background:#f6f8fb;
+background:#f5f7fb;
+color:#1f2937;
 }
 
-.card{
-background:white;
-border:1px solid #ddd;
-padding:14px;
-margin-bottom:12px;
+header{
+margin-bottom:20px;
+}
+
+.dashboard{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+}
+
+.dashCard{
+background:#ffffff;
+padding:20px;
+box-shadow:0 3px 10px rgba(0,0,0,0.05);
+cursor:pointer;
+}
+
+.cardGrid{
+display:grid;
+gap:10px;
 }
 
 .wineCard{
 background:white;
-border:1px solid #ddd;
-padding:12px;
-margin-bottom:10px;
+padding:14px;
+box-shadow:0 2px 8px rgba(0,0,0,0.05);
+cursor:pointer;
 }
 
 button{
-background:#4f7cff;
+background:#5b7cfa;
 color:white;
 border:none;
 padding:8px 12px;
-margin-top:6px;
+margin-top:10px;
 }
 
-.page.hidden{display:none;}
+.page.hidden{
+display:none;
+}
 
 .modal{
 position:fixed;
@@ -46,32 +64,45 @@ justify-content:center;
 .modalContent{
 background:white;
 padding:20px;
-width:90%;
+width:92%;
 max-height:90%;
 overflow:auto;
-position:relative;
+}
+
+.modalHeader{
+display:flex;
+justify-content:flex-end;
+gap:6px;
 }
 
 .closeBtn{
-position:absolute;
-top:10px;
-right:10px;
 background:white;
 color:black;
 border:1px solid #ccc;
 }
 
 .editBtn{
-position:absolute;
-top:10px;
-right:50px;
 background:white;
 color:black;
 border:1px solid #ccc;
 }
 
-.hidden{
-display:none;
+input, textarea{
+width:100%;
+margin-top:6px;
+margin-bottom:6px;
+padding:6px;
+border:1px solid #d1d5db;
+}
+
+textarea{
+height:70px;
+}
+
+.actions{
+display:flex;
+gap:8px;
+flex-wrap:wrap;
 }
 
 .bottomNav{
@@ -82,12 +113,11 @@ width:100%;
 background:white;
 display:flex;
 justify-content:space-around;
-border-top:1px solid #ddd;
-padding:6px;
+padding:8px;
+border-top:1px solid #e5e7eb;
 }
 
-.actions{
-margin-top:10px;
-display:flex;
-gap:8px;
+.bottomNav button{
+flex:1;
+margin:0 3px;
 }

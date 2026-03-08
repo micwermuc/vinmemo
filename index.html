@@ -15,64 +15,75 @@
 </header>
 
 <section id="home" class="page">
-<div class="card clickable" onclick="showPage('keller')">
+<div class="dashboard">
+
+<div class="dashCard" onclick="showPage('keller')">
 <h2>Keller</h2>
 <p id="countKeller">0 Flaschen</p>
 </div>
 
-<div class="card clickable" onclick="showPage('wishlist')">
+<div class="dashCard" onclick="showPage('wishlist')">
 <h2>Wishlist</h2>
 <p id="countWishlist">0 Weine</p>
 </div>
 
-<div class="card clickable" onclick="showPage('archiv')">
+<div class="dashCard" onclick="showPage('archiv')">
 <h2>Archiv</h2>
 <p id="countArchiv">0 Weine</p>
+</div>
+
 </div>
 </section>
 
 <section id="keller" class="page hidden">
 <h2>Keller</h2>
-<div id="kellerListe"></div>
+<div id="kellerListe" class="cardGrid"></div>
 <button id="addWine">Wein hinzufügen</button>
 </section>
 
 <section id="wishlist" class="page hidden">
 <h2>Wishlist</h2>
-<div id="wishlistListe"></div>
+<div id="wishlistListe" class="cardGrid"></div>
 </section>
 
 <section id="archiv" class="page hidden">
 <h2>Archiv</h2>
-<div id="archivListe"></div>
-</section>
-
-<section id="settings" class="page hidden">
-<h2>Einstellungen</h2>
+<div id="archivListe" class="cardGrid"></div>
 </section>
 
 <div id="detailModal" class="modal hidden">
 <div class="modalContent">
 
-<button class="closeBtn" onclick="closeModal()">X</button>
+<div class="modalHeader">
 <button class="editBtn" onclick="toggleEdit()">✏️</button>
+<button class="closeBtn" onclick="closeModal()">✕</button>
+</div>
 
 <div id="viewMode">
+
 <h2 id="viewName"></h2>
 <p id="viewProducer"></p>
 <p id="viewVintage"></p>
 <p id="viewRegion"></p>
+
 <p id="viewCounter"></p>
 <p id="viewNotes"></p>
+
 </div>
 
 <div id="editMode" class="hidden">
-<input id="editName">
-<input id="editProducer">
-<input id="editVintage">
-<input id="editRegion">
-<textarea id="editNotes"></textarea>
-<label><input type="checkbox" id="editWishlist"> Wishlist</label>
+
+<input id="editName" placeholder="Name">
+<input id="editProducer" placeholder="Produzent">
+<input id="editVintage" placeholder="Jahrgang">
+<input id="editRegion" placeholder="Region">
+
+<textarea id="editNotes" placeholder="Notizen"></textarea>
+
+<label>
+<input type="checkbox" id="editWishlist"> Wishlist
+</label>
+
 </div>
 
 <div class="actions">
